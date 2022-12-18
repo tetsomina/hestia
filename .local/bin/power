@@ -1,0 +1,33 @@
+#!/bin/sh
+
+options=" Lock
+↵ Logout
+ Suspend
+⏼ Hibernate
+ Reboot
+⏻ Shutdown"
+
+choice=$(echo "$options" | bemenu -p "Power")
+
+case "$choice" in
+*Lock*)
+    #xautolock -locknow
+    lock
+    ;;
+*Logout*)
+    #herbstclient quit
+    swaymsg exit
+    ;;
+*Suspend*)
+    sudo zzz -H
+    ;;
+*Hibernate*)
+    sudo ZZZ
+    ;;
+*Reboot*)
+    sudo reboot
+    ;;
+*Shutdown*)
+    sudo poweroff
+    ;;
+esac

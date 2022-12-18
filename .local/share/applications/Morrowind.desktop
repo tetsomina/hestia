@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Morrowind
+Comment=The Elder Scrolls III: Morrowind
+Exec=game_launch.sh esmw
+Icon=Morrowind
+Terminal=false
+StartupNotify=false
+Categories=Application;Multimedia;

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Warcraft
+Comment=Warcraft: Orcs and Humans
+Exec=game_launch.sh wrct
+Icon=Warcraft
+Terminal=false
+StartupNotify=false
+Categories=Application;Multimedia;

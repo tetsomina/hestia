@@ -1,0 +1,14 @@
+#!/bin/sh
+value="${2:-5}"
+
+case $1 in
+up)
+    light -A $value
+    ;;
+down)
+    light -U $value
+    ;;
+esac
+
+cur=$(light | cut -d'.' -f1)
+echo "$cur" >/tmp/xob_bright

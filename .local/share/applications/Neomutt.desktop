@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Neomutt
+Comment=Teaching an old dog new tricks
+Exec=neomutt
+Icon=Neomutt
+Terminal=true
+StartupNotify=false
+Categories=Application;Network;Email;

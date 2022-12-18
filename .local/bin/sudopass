@@ -1,0 +1,3 @@
+#!/bin/sh
+
+printf "" | bemenu -x -p "Password" 2>/dev/null

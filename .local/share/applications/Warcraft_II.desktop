@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Warcraft II
+Comment=Warcraft II: Tides of Darkness
+Exec=game_launch.sh wct2
+Icon=Warcraft II
+Terminal=false
+StartupNotify=false
+Categories=Application;Multimedia;

@@ -1,0 +1,43 @@
+#!/bin/bash
+
+full() {
+    #mrect=($(herbstclient monitor_rect ""))
+
+    #width=${mrect[2]}
+    #height=${mrect[3]}
+
+    notify-send -t 3000 "Screenshot" "Screenshot in 5 seconds"
+    sleep 5 &&
+        grim ~/Pictures/Screenshots/"$(date '+%Y-%m-%d_%H-%M-%S')".png
+    #import -window root ~/Pictures/Screenshots/"$(date '+%Y-%m-%d_%H-%M-%S')".png
+    #ffcast png ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
+    #ffmpeg -f x11grab -video_size ${width}x${height} -draw_mouse 0 -i $DISPLAY -vframes 1 ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
+    #scrot ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
+    #shotgun ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
+    #maim -q -d 5 ~/Pictures/Screenshots/"$(date '+%Y-%m-%d_%H-%M-%S')".png
+    notify-send "Screenshot" "Screenshot taken"
+}
+
+region() {
+    notify-send "Screenshot" "Select a region to screenshot"
+    grim -g "$(slurp -b 00000000 -c dfdfaf)" ~/Pictures/Screenshots/"$(date '+%Y-%m-%d_%H-%M-%S')".png
+    #sleep 0.3 &&
+    #eval $(slop --color=0.874,0.874,0.686 -n -b 2 -f 'W=%w H=%h X=%x Y=%y') && ffmpeg -f x11grab -video_size ${W}x${H} -draw_mouse 0 -i ${DISPLAY}+${X},${Y} -vframes 1 ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
+    #scrot -s ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
+    #shotgun -g $(hacksaw -n) ~/Pictures/Screenshots/$(date '+%Y-%m-%d_%H-%M-%S').png
+    #maim --color=0.874,0.874,0.686 -b 2 -s ~/Pictures/Screenshots/"$(date '+%Y-%m-%d_%H-%M-%S')".png
+    #import -window root -crop $(slop --color=0.874,0.874,0.686 -b 2) ~/Pictures/Screenshots/"$(date '+%Y-%m-%d_%H-%M-%S')".png
+    notify-send "Screenshot" "Screenshot of region taken"
+}
+
+case "$1" in
+-f | --full)
+    full
+    ;;
+-r | --region)
+    region
+    ;;
+*)
+    echo "usage: $(basename "$0") [-f|--full] [-r|--region]"
+    ;;
+esac
