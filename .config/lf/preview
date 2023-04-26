@@ -3,14 +3,12 @@
 FILE="$1"
 
 image() {
-	#ratio="$(grep ratios ~/.config/lf/lfrc | head -n1 | awk '{print $3}' | tr ':' '/')"
-	#width_percentage=$(echo "(($ratio)*100)-8" | bc -l | cut -d '.' -f1)
-	#if [ -n "$TMUX" ]; then
-	#	echo -e "\ePtmux;\e\e]20;${1};${width_percentage}x94+97+8:op=keep-aspect\a\e\\"
-	#else
-	#	echo -e "\e]20;${1};${width_percentage}x84+92+8:op=keep-aspect\a"
-	#fi
-	chafa -f symbols -c full -s "${2}x${3}" "$1"
+	if which ueberzug &>/dev/null; then
+		printf '{"action": "add", "identifier": "PREVIEW", "x": "%s", "y": "%s", "width": "%s", "height": "%s", "scaler": "contain", "path": "%s"}\n' "$4" "$5" "$(($2 - 1))" "$(($3 - 1))" "$1" >"$FIFO_UEBERZUG"
+		exit 1
+	else
+		chafa -f symbols -c full -s "${2}x${3}" "$1"
+	fi
 	exit
 }
 
@@ -93,26 +91,23 @@ handle_extension() {
 		elinks -dump "$1" && exit 5
 		pandoc -s -t markdown -- "$1" && exit 5
 		;;
-	*.bdf | *.pcf)
-		preview_png="/tmp/$(basename "${CACHE}").png"
-		fontname="$(basename $1 | cut -d. -f1)"
-		if hb-view -o "${preview_png}" \
-			--font-size=14 \
-			--verify \
-			--line-space=14 \
-			--text="${fontname}
-ABCDEFGHIJKLMNOPQRSTUVWXYZ  
-abcdefghijklmnopqrstuvwxyz
-123456789.:,;(*!?') ff fl fi ffi ffl
-The quick brown fox jumps over the lazy dog." \
-			"$1"; then
-			convert -- "${preview_png}" "${CACHE}" &&
-				rm "${preview_png}" &&
-				exit 6
-		else
-			exit 1
-		fi
-		;;
+		# 	*.bdf | *.pcf | *.ttf | *.dfont | *.otb | *.sfd)
+		# 		preview_png="/tmp/$(basename "${CACHE}").png"
+		# 		fontname="$(basename $1 | cut -d. -f1)"
+		# 		if hb-view -o "${preview_png}" \
+		# 			--text="${fontname}
+		# ABCDEFGHIJKLMNOPQRSTUVWXYZ
+		# abcdefghijklmnopqrstuvwxyz
+		# 123456789.:,;(*!?') ff fl fi ffi ffl
+		# The quick brown fox jumps over the lazy dog." \
+		# 			"$1"; then
+		# 			convert -- "${preview_png}" "${CACHE}" &&
+		#                 image ${CACHE} "$2" "$3" "$4" "$5" &&
+		#                 rm "${preview_png}"
+		# 		else
+		# 			exit 1
+		# 		fi
+		# 		;;
 	esac
 }
 
@@ -142,7 +137,7 @@ handle_mime() {
 		## Preview as csv conversion
 		## xls2csv comes with catdoc:
 		##   http://www.wagner.pp.ru/~vitus/software/catdoc/
-		xls2csv -- "$FILE" && exit 5
+		xls2csv -c$'\t' -q1 -- "$FILE" && exit 5
 		exit 1
 		;;
 
