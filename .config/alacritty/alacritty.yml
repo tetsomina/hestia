@@ -30,9 +30,9 @@ window:
   # Number of lines/columns (not pixels) in the terminal. The number of columns
   # must be at least `2`, while using a value of `0` for columns and lines will
   # fall back to the window manager's recommended size.
-  #dimensions:
-  #  columns: 0
-  #  lines: 0
+  dimensions:
+    columns: 0
+    lines: 0
 
   # Window position (changes require restart)
   #
@@ -125,7 +125,7 @@ font:
     #family: monospace
 
     # The `style` can be specified to pick a specific face.
-    style: Regular
+    style: Bold
 
   # Italic font face
   italic:
@@ -147,7 +147,7 @@ font:
     #family: monospace
 
     # The `style` can be specified to pick a specific face.
-    style: Regular
+    style: Bold
 
   # Point size
   size: 12
@@ -174,7 +174,7 @@ font:
   builtin_box_drawing: false
 
 # If `true`, bold text is drawn using the bright color variants.
-draw_bold_text_with_bright_colors: false
+draw_bold_text_with_bright_colors: true
 
 # Colors (Alduin)
 colors:
@@ -218,14 +218,14 @@ colors:
   search:
     # Allowed values are CellForeground/CellBackground, which reference the
     # affected cell, or hexadecimal colors like #ff00ff.
-    #matches:
-    #  foreground: '#000000'
-    #  background: '#ffffff'
-    #focused_match:
-    #  foreground: '#ffffff'
-    #  background: '#000000'
+    matches:
+      foreground: '#ffffaf'
+      background: '#262626'
+    focused_match:
+      foreground: CellBackground
+      background: CellForeground
 
-    bar:
+    footer_bar:
       background: '#af875f'
       foreground: '#1c1c1c'
 
@@ -263,9 +263,9 @@ colors:
   #
   # Allowed values are CellForeground/CellBackground, which reference the
   # affected cell, or hexadecimal colors like #ff00ff.
-  #selection:
-  #  text: CellBackground
-  #  background: CellForeground
+  selection:
+    text: CellBackground
+    background: CellForeground
 
   # Normal colors
   normal:
@@ -274,20 +274,20 @@ colors:
     green:   '#87875f'
     yellow:  '#af875f'
     blue:    '#878787'
-    magenta: '#af8787'
-    cyan:    '#87afaf'
-    white:   '#dfdfaf'
+    magenta: '#875f5f'
+    cyan:    '#5f8787'
+    white:   '#ffdf87'
 
   # Bright colors
   bright:
-    black:   '#626262'
-    red:     '#af5f5f'
-    green:   '#87875f'
-    yellow:  '#af875f'
-    blue:    '#878787'
+    black:   '#4e4e4e'
+    red:     '#df8787'
+    green:   '#afaf87'
+    yellow:  '#dfaf87'
+    blue:    '#afafaf'
     magenta: '#af8787'
     cyan:    '#87afaf'
-    white:   '#dfdfaf'
+    white:   '#ffffaf'
 
   # Dim colors
   #
