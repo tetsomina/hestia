@@ -1,3 +1,4 @@
 #!/bin/sh
 
-printf "" | bemenu -x -p "Password" 2>/dev/null
+#printf "" | bemenu -x -p "Password" 2>/dev/null
+rofi -dmenu -password -p "Password"

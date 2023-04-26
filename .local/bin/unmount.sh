@@ -2,7 +2,7 @@
 
 devices=$(ldmc -l)
 
-selection=$(echo "$devices" | bemenu -p "Unmount")
+selection=$(echo "$devices" | rofi -dmenu -i -p "Unmount")
 
 if [ -n "$selection" ]; then
     dev=$(echo "$selection" | awk '{print $2}' | tr -d '"')

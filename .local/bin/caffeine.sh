@@ -1,17 +1,18 @@
 #!/bin/sh
 
-state=$(sv check ~/.local/service/wayland/swayidle/ | cut -d' ' -f2)
-#state=$(xset q | grep Enabled | awk '{print $3}')
+#state=$(sv check ~/.local/service/wayland/swayidle/ | cut -d' ' -f2)
+state=$(xset q | grep 'DPMS is' | awk '{print $3}')
 case "$state" in
 Enabled)
-    xset dpms 0 0 0
     xset -dpms
+    xset s off
+    xset s noblank
     xautolock -disable
     echo true >/tmp/caffeine.fifo
     ;;
 Disabled)
     xset +dpms
-    xset dpms 0 0 300 #&& DISPLAY=:8 xset dpms 300
+    xset s
     xautolock -enable
     echo false >/tmp/caffeine.fifo
     ;;

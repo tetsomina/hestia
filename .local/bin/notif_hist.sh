@@ -12,12 +12,8 @@ query() {
 
     [ ! -f "$count" ] && echo 1 >$count
 
-    # Refresh time on count file just in case
-    touch $count
-
     c=$(cat $count)
-    #kill -USR1 $(pgrep --full 'bash.*scripts/notif.sh' | head -1)
-    echo "skip" >/tmp/signal_bar
+    pkill zscroll
     echo "$notifs" | awk "NR==$c" >"/tmp/old_notifs" &
     c=$((c + 1))
     echo "$c" >$count
@@ -25,8 +21,7 @@ query() {
 
 cleanup() {
     [ -f $count ] && rm $count
-    #kill -USR1 $(pgrep --full 'bash.*scripts/notif.sh' | head -1)
-    echo "skip" >/tmp/signal_bar
+    pkill zscroll
 }
 
 case "$1" in

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+# This will lock your screen after 300 seconds of inactivity, then turn off
+# your displays, and turn your screens back on when
+# resumed. It will also suspend/hibernate your machine after another 300 seconds.
+
+exec swayidle \
+    timeout 180 'sway_dim.sh -d' resume 'sway_dim.sh -r' \
+    timeout 299 'lock &' \
+    timeout 300 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+    timeout 600 'sudo zzz -H'

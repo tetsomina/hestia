@@ -1,0 +1,18 @@
+#!/bin/sh
+
+ob() {
+    vfifo=/tmp/xob_vol
+    bfifo=/tmp/xob_bright
+
+    [ -e "$vfifo" ] && rm $vfifo
+    mkfifo $vfifo
+    [ -e "$bfifo" ] && rm $bfifo
+    mkfifo $bfifo
+
+    tail -f $vfifo | wob -t 2000 -a center -a bottom -W 384 -H 35 -M 162 -o 2 -b 3 -p 4 &
+    tail -f $bfifo | wob -t 2000 -a center -a bottom -W 384 -H 35 -M 162 -o 2 -b 3 -p 4 --border-color '#424242ff' --background-color '#1c1c1cff' --bar-color '#af875fff' &
+
+    wait
+}
+
+ob

@@ -5,4 +5,4 @@
 [ -f "$1" ] && op=cat
 
 "${op:-echo}" "${1:-`cat -`}" |
-    curl -F file='@-' 'https://0x0.st'
+    curl -s -F file='@-' 'https://0x0.st'

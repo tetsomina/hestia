@@ -1,22 +1,26 @@
 #!/bin/sh
 
-options=" Lock
-↵ Logout
- Suspend
-⏼ Hibernate
- Reboot
-⏻ Shutdown"
+options="Lock
+Logout
+Suspend
+Hibernate
+Reboot
+Shutdown"
 
-choice=$(echo "$options" | bemenu -p "Power")
+backlight_save() {
+    brillo -O
+}
+
+choice=$(echo "$options" | rofi -dmenu -i -p "Power")
 
 case "$choice" in
 *Lock*)
-    #xautolock -locknow
-    lock
+    xautolock -locknow
+    #lock
     ;;
 *Logout*)
-    #herbstclient quit
-    swaymsg exit
+    herbstclient quit
+    #swaymsg exit
     ;;
 *Suspend*)
     sudo zzz -H
@@ -25,9 +29,11 @@ case "$choice" in
     sudo ZZZ
     ;;
 *Reboot*)
+    backlight_save
     sudo reboot
     ;;
 *Shutdown*)
+    backlight_save
     sudo poweroff
     ;;
 esac

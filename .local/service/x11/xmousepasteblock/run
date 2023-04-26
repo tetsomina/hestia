@@ -1,3 +1,11 @@
 #!/bin/sh
 
+#midpaste_block() {
+#    while true; do
+#        xsel -fin </dev/null
+#    done
+#}
+#
+#midpaste_block
+
 exec xmousepasteblock

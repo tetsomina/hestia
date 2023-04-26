@@ -2,7 +2,7 @@
 Version=1.0
 Type=Application
 Name=Ncmpcpp
-Comment=NCurses Music Player Daemon Client
+Comment=NCurses Music Player Client (Plus Plus)
 Exec=tmux new-session -s Music "tmux source-file ~/.config/ncmpcpp/tmux_session"
 Icon=Ncmpcpp
 Terminal=true

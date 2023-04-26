@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec synergyc --no-daemon --no-tray --enable-crypto 192.168.0.8

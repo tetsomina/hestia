@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Durdraw
+Comment=Ansi Art Editor
+Exec=durdraw -m
+Icon=Durdraw
+Terminal=true
+StartupNotify=false
+Categories=Application;Multimedia;
