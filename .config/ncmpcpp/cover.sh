@@ -1,24 +1,19 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-#-------------------------------#
-# Display current cover         #
-#-------------------------------#
+#----------------------------------#
+# Cover script to run with ncmpcpp #
+#----------------------------------#
 
 clear
-[ -e /tmp/cover.fifo ] && rm /tmp/cover.fifo
-mkfifo /tmp/cover.fifo
-tail -f /tmp/cover.fifo |
-    while read -r event; do
-        clear
-        printf "%b" "\033[31mArtwork\n"
-        for i in $(seq $(tput cols)); do
-            printf "%b" "\033[30m─"
-        done
-        printf "%b" "\n"
-        atmp="/tmp/temp.mp3"
-        itmp="/tmp/temp.png"
-        url=$(playerctl metadata xesam:url 2>/dev/null)
-        nfs-cp "$url" "$atmp" >/dev/null 2>&1
-        ffmpeg -nostdin -y -i "$atmp" "$itmp" >/dev/null 2>&1
-        chafa -c full "${itmp}" 2>/dev/null && rm "$atmp" "$itmp" >/dev/null 2>&1
-    done
+playerctl metadata --follow -f "{{ mpris:artUrl }}" |
+	while read -r event; do
+		## Album Art
+		clear
+		printf "%b" "\033[01;31mArtwork\033[0m\n"
+		for i in $(seq 1 $(tput cols)); do
+			printf "%b" "\033[30m─"
+		done
+		printf "%b" "\n"
+		art=$(printf "%b\n" "$event" | cut -d'/' -f3-)
+		chafa -c full "$art" 2>/dev/null
+  done

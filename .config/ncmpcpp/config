@@ -1,19 +1,23 @@
 # Mpd configs
 mpd_host = "localhost"
 mpd_port = "6600"
-mpd_music_dir = "nfs://192.168.0.2/var/lib/mpd/music"
+mpd_music_dir = "http://192.168.0.2:8080"
 mpd_connection_timeout = 60
 
 # General
-lyrics_directory = "/home/tetsomina/.cache/lyrics/"
+lyrics_directory = "~/.cache/lyrics/"
 external_editor = "nvim"
 message_delay_time = "1"
 playlist_disable_highlight_delay = 1
 enable_window_title = "yes"
+media_library_primary_tag = album_artist
 media_library_albums_split_by_date = "no"
-media_library_hide_album_dates = yes
+media_library_hide_album_dates = no
+lastfm_preferred_language = en
 connected_message_on_startup = no
+startup_screen = "media_library"
 space_add_mode = add_remove
+ignore_leading_the = yes
 ignore_diacritics = yes
 screen_switcher_mode = previous
 cyclic_scrolling = "no"
@@ -29,7 +33,7 @@ playlist_shorten_total_times = "yes"
 playlist_display_mode = "columns"
 playlist_separate_albums = "no"
 song_columns_list_format = "(25)[]{a} (40)[]{t} (25)[]{b} (10)[]{lr}"
-song_status_format = "$8%t $(9)by $2%a $9on $4%b$9"
+song_status_format = "$4%t $(9)by $4%a $9on $4%b$9"
 
 colors_enabled = "yes"
 discard_colors_if_item_is_selected = "yes"
@@ -48,15 +52,15 @@ volume_color = "2"
 statusbar_color = "4"
 statusbar_time_color = "9"
 header_window_color = "2"
-main_window_color = "8"
+main_window_color = "default"
 empty_tag_color = "9"
 color1 = "8"
 color2 = "8"
 
-now_playing_prefix = "$4$b"
-now_playing_suffix = "$(end)$/b"
-current_item_prefix = "$(4_1)$b"
-current_item_suffix = "$/b$(end)"
+now_playing_prefix = "$(4)"
+now_playing_suffix = "$(end)"
+current_item_prefix = "$(4_1)"
+current_item_suffix = "$(end)"
 current_item_inactive_column_prefix = "$(9_1)"
 current_item_inactive_column_suffix = $(end)
 state_line_color = "1"
@@ -81,5 +85,6 @@ visualizer_color = "9, yellow, red"
 visualizer_fps = 30
 
 # Notification hooks
-execute_on_player_state_change = echo upd >/tmp/cover.fifo
-#execute_on_song_change = ~/.config/ncmpcpp/notify.sh
+#execute_on_player_state_change = ~/.config/ncmpcpp/notify.sh
+#execute_on_song_change = notify-send -u low "Music" "$(mpc --format " Now Playing  %title% %time%  %artist%  %album%" current)" && echo upd >/tmp/cover.fifo
+#execute_on_song_change = echo upd > /tmp/cover.fifo
