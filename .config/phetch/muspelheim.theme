@@ -1,0 +1,17 @@
+# Color Scheme (Actually default at the moment)
+## UI
+ui.cursor yellow bold
+ui.number blue
+ui.menu red
+ui.text white
+
+## Items
+item.text cyan
+item.menu white
+item.error red
+item.search yellow
+item.telnet grey
+item.external green
+item.download white underline
+item.media green underline
+item.unsupported whitebg red
