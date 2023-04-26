@@ -8,10 +8,10 @@
         $(function () {
             var thehours = new Date().getHours();
             var themessage;
-            var night = ('Good night Tetsomina');
-            var morning = ('Good morning Tetsomina');
-            var afternoon = ('Good afternoon Tetsomina');
-            var evening = ('Good evening Tetsomina');
+            var night = ('Good night Barbaross');
+            var morning = ('Good morning Barbaross');
+            var afternoon = ('Good afternoon Barbaross');
+            var evening = ('Good evening Barbaross');
 
             if (thehours >= 0 && thehours < 6) {
                 themessage = night;
@@ -55,43 +55,42 @@
             --color15: #dfdfaf;
             --color16: #323232;
         }
-
+        
         @media (prefers-color-scheme: dark) {
-            :root {
-                /* Special */
-                --background: #1c1c1c;
-                --foreground: #dfdfaf;
-
-                /* Colors */
-                --color0: #262626;
-                --color1: #af5f5f;
-                --color2: #878757;
-                --color3: #af875f;
-                --color4: #878787;
-                --color5: #af8787;
-                --color6: #87afaf;
-                --color7: #dfdaf;
-                --color8: #4e4e4e;
-                --color9: #af5f5f;
-                --color10: #87875f;
-                --color11: #af875f;
-                --color12: #878787;
-                --color13: #af8787;
-                --color14: #87afaf;
-                --color15: #dfdfaf;
-                --color16: #323232;
-            }
+	        :root {
+	            /* Special */
+	            --background: #1c1c1c;
+	            --foreground: #dfdfaf;
+	
+	            /* Colors */
+	            --color0: #262626;
+	            --color1: #af5f5f;
+	            --color2: #878757;
+	            --color3: #af875f;
+	            --color4: #878787;
+	            --color5: #af8787;
+	            --color6: #87afaf;
+	            --color7: #dfdaf;
+	            --color8: #4e4e4e;
+	            --color9: #af5f5f;
+	            --color10: #87875f;
+	            --color11: #af875f;
+	            --color12: #878787;
+	            --color13: #af8787;
+	            --color14: #87afaf;
+	            --color15: #dfdfaf;
+	            --color16: #323232;
+	        }
         }
 
         @font-face {
-            font-family: spleen;
-            src: url('spleen-8x16.ttf');
+            font-family: Viscera;
+            src: url('viscera8x16r.ttf');
         }
 
         html {
             font-size: 16px;
-            font-family: spleen;
-            /*font-weight: black;*/
+            font-family: Viscera;
             background-color: var(--background);
             color: var(--foreground);
         }
@@ -100,10 +99,10 @@
             display: grid;
             grid-template-columns: 1fr 460px 600px 1fr;
             grid-template-areas:
-                ". left right .";
+            ". left right .";
             column-gap: 20px;
             justify-items: center;
-            align-items: center;
+             align-items: center;
             min-height: 100%;
             right: 50%;
             bottom: 50%;
@@ -124,7 +123,7 @@
             transform: translate(50%, 50%);
             position: absolute;
         }
-
+       
         img {
             height: 85%;
             width: 85%;
@@ -192,41 +191,40 @@
             </div>
         </div>
 
-        <div class=right-container>
-            <div class="greeting">
-            </div>
-            <div class=categories>
-                <p class="cat">Productive</p>
-                <p class="cat">Funsies</p>
-                <p class="cat">Nifty</p>
-            </div>
-            <div class=items>
-                <p class="lst">
-                    <a href="https://monkeytype.com/">Monkeytype</a> <span style="color: var(--color8)">|</span>
-                    <a href="https://gitlab.com/">Gitlab</a> <span style="color: var(--color8)">|</span>
-                    <a href="https://github.com">Github</a> <span style="color: var(--color8)">|</span>
-                    <a href="https://mail.proton.me/u/0/inbox">Protonmail</a> <span
-                        style="color: var(--color8)">|</span>
-                    <a href="https://gmail.com">Gmail</a>
-                </p>
-                <p class="lst">
-                    <a href="https://hulu.com">Hulu</a> <span style="color: var(--color8)">|</span>
-                    <a href="https://reddit.com">Reddit</a> <span style="color: var(--color8)">|</span>
-                    <a href="https://16colo.rs">16colo.rs</a> <span style="color: var(--color8)">|</span>
-                    <a href="https://deskto.ps/">Desktops</a> <span style="color: var(--color8)">|</span>
-                    <a href="https://boards.4channel.org/g/">/g/</a> <span style="color: var(--color8)">|</span>
-                    <a href="https://nixers.net">Nixers</a>
-                </p>
-                <p class="lst">
-                    <a href="https://wiki.archlinux.org/">Arch Wiki</a> <span style="color: var(--color8)">|</span>
-                    <a href="https://docs.voidlinux.org/">Void Docs</a> <span style="color: var(--color8)">|</span>
-                    <a href="https://youtube.com">Youtube</a> <span style="color: var(--color8)">|</span>
-                    <a href="https://open.spotify.com/">Spotify</a> <span style="color: var(--color8)">|</span>
-                    <a href="https://www.last.fm/home">last.fm</a>
-                </p>
-            </div>
-        </div>
+    <div class=right-container>
+    <div class="greeting">
     </div>
+    <div class=categories>
+        <p class="cat">Productive</p>
+        <p class="cat">Funsies</p>
+        <p class="cat">Nifty</p>
+    </div>
+    <div class=items>
+        <p class="lst">
+            <a href="https://monkeytype.com/">Monkeytype</a> <span style="color: var(--color8)">|</span>
+            <a href="https://gitlab.com/">Gitlab</a> <span style="color: var(--color8)">|</span>
+            <a href="https://github.com">Github</a> <span style="color: var(--color8)">|</span>
+            <a href="https://mail.proton.me/u/0/inbox">Protonmail</a> <span style="color: var(--color8)">|</span>
+            <a href="https://gmail.com">Gmail</a>
+        </p>
+        <p class="lst">
+            <a href="https://hulu.com">Hulu</a> <span style="color: var(--color8)">|</span>
+            <a href="https://reddit.com">Reddit</a> <span style="color: var(--color8)">|</span>
+            <a href="https://16colo.rs">16colo.rs</a> <span style="color: var(--color8)">|</span>
+            <a href="https://deskto.ps/">Desktops</a> <span style="color: var(--color8)">|</span>
+            <a href="https://boards.4channel.org/g/">/g/</a> <span style="color: var(--color8)">|</span>
+            <a href="https://nixers.net">Nixers</a>
+        </p>
+        <p class="lst">
+            <a href="https://wiki.archlinux.org/">Arch Wiki</a> <span style="color: var(--color8)">|</span>
+            <a href="https://docs.voidlinux.org/">Void Docs</a> <span style="color: var(--color8)">|</span>
+            <a href="https://youtube.com">Youtube</a> <span style="color: var(--color8)">|</span>
+            <a href="https://open.spotify.com/">Spotify</a> <span style="color: var(--color8)">|</span>
+            <a href="https://www.last.fm/home">last.fm</a>            
+        </p>
+    </div>
+    </div>
+</div>
 </body>
 
 </html>
