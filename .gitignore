@@ -13,14 +13,15 @@
 .config/git/
 .config/gtk-3.0/
 .config/herbstluftwm/sessions/
-.config/herbstluftwm/scripts/old/
+.config/herbstluftwm/scripts/archives/
 .config/hplip/
+.config/hydroxide/
 .config/mpdscribble/
 .config/ncmpcpp/error.log
 .config/neomutt/signature
 .config/newsboat/history.cmdline
 .config/newsboat/urls
-.config/polybar/polybar-scripts/old
+.config/polybar/scripts/archives
 .config/protonmail/*
 .config/qutebrowser/bookmarks/
 .config/qutebrowser/host_block
@@ -28,14 +29,17 @@
 .config/qutebrowser/qsettings/
 .config/qutebrowser/alduin/__pycache__/
 .config/QtProject.conf
-.config/old/
+.config/archives/
 .config/openmw/
 .config/pam-gnupg
 .config/phetch/history.gph
+.config/pulse/
 .config/ranger/plugins/
 .config/task/*.data
 .config/nvim/autoload/
 .config/nvim/plugged/
+.config/nvim/plugin/
+.config/nvim/lua/plugins/archives/
 .config/waynergy/hash/
 .config/waynergy/tls/
 .config/weechat/logs/
@@ -55,7 +59,7 @@
 .config/zsh/.zcompdump
 
 # Scripts to ignore
-.local/bin/old/
+.local/bin/archives/
 
 # Service folders to ignore
 .local/service/*/*/supervise/
