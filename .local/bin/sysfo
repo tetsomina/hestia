@@ -1,0 +1,57 @@
+#!/bin/env bash
+
+name=$USER
+host=$(uname -n)
+machine=$(cat /sys/devices/virtual/dmi/id/product_version)
+distro="$(cat /etc/os-release | grep PRETTY_NAME | cut -d\" -f2)"
+kernel=$(uname -r)
+pkgs=$(xbps-query -l | wc -l)
+colors=$(grep colorscheme ~/.config/nvim/lua/options.lua | cut -d' ' -f2 | rev | cut -c 4- | rev)
+font="$(sed -ne '/<family>/s#\s*<[^>]*>\s*##gp' ~/.config/fontconfig/fonts.conf | grep --after-context=1 monospace | tail -1 | tr "[:upper:]" "[:lower:]")"
+wm="$(xprop -root _NET_WM_NAME | cut -d\" -f2)"
+shell=$(basename $(printenv SHELL))
+term="${TERM%-256color}"
+editor=$(basename $(printenv EDITOR))
+uptm=$(uptime -p | cut -b4- | tr -d ',|eeks|ay|our|inute')
+
+BLK="\e[30m"
+RED="\e[31m"
+GRN="\e[32m"
+YLW="\e[33m"
+BLU="\e[34m"
+PUR="\e[35m"
+CYN="\e[36m"
+WHT="\e[37m"
+GRY="\e[90;1m"
+RST="\e[0m"
+
+printf "\n"
+printf "%b\n" "        $RED┏━$GRY ■$RST Welcome To"
+printf "%b\n" "        $RED┗━━━━━━━━━━━━━━━━━━━━━━━━┓"
+printf "%b\n" "                $YLW$host$RED       ┃"
+printf "%b\n" "         ┏━━━━━━━━━━━━━━━━━━━━━━━┛"
+printf "%-34b%b\n" "         ┃" "$BLU▃▃"
+printf "%-63b%b\n" "    $RED[${RST}os$RED]━┫$GRY ■$RST $distro" "$YLW▐▌"
+printf "%-63b%b\n" "  ${RED}[${RST}mach$RED]━┫$GRY ■$RST $machine" "$YLW▐▌"
+printf "%-62b%b\n" "  ${RED}[${RST}kern$RED]━┫$GRY ■$RST $kernel" "$BLU▄██▄"
+printf "%-63b%b\n" "  ${RED}[${RST}pkgs$RED]━┫$GRY ■$RST $pkgs" "$GRY▓█$RST"
+printf "%-63b%b\n" "  ${RED}[${RST}uptm$RED]━┫$GRY ■$RST $uptm" "$GRY▓█$RST"
+printf "%-39b%b\n" "         $RED┃" "$GRY▓█$RST"
+printf "%-63b%b\n" "    $RED[${RST}wm$RED]━┫$GRY ■$RST $wm" "$GRY▓█$RST"
+printf "%-63b%b\n" " ${RED}[${RST}shell$RED]━┫$GRY ■$RST $shell" "$GRY▓█$RST"
+printf "%-63b%b\n" "  ${RED}[${RST}term$RED]━┫$GRY ■$RST $term" "$GRY▓█$RST"
+printf "%-63b%b\n" "  ${RED}[${RST}font$RED]━┫$GRY ■$RST $font" "$GRY▓█$RST"
+printf "%-63b%b\n" "${RED}[${RST}editor$RED]━┫$GRY ■$RST $editor" "$GRY▓█$RST"
+printf "%-63b%b\n" "${RED}[${RST}colors$RED]━┫$GRY ■$RST $colors" "$GRY▓█$RST"
+printf "%-38b%b\n" "$RED         ┃" "$GRY ◥◤$RST"
+printf "%b\n" "$RED  ┏━━━━━━┛"
+printf "%b\n" "  ┃  ${RST} Enjoy your stay, ${YLW}$name"
+printf "%b\n" "$RED  ┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┅┅┅┅┉┉┉"
+
+printf "\n    "
+i=0
+while [ $i -le 6 ]; do
+    printf "%b" "\e[$((i + 41))m\e[$((i + 30))m█▓▒░"
+    i=$((i + 1))
+done
+printf "\e[37m█\e[0m▒░\n\n"

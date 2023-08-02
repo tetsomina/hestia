@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if pidof picom; then
+	sv down ~/.local/service/x11/picom
+	notify-send "Compositor" "Compositor killed"
+else
+	sv up ~/.local/service/x11/picom
+	notify-send "Compositor" "Compositor started"
+fi

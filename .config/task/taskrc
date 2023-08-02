@@ -1,0 +1,110 @@
+ar###################################
+# __               __
+#|  |_.---.-.-----|  |--.----.----.
+#|   _|  _  |__ --|    <|   _|  __|
+#|____|___._|_____|__|__|__| |____|
+###################################
+
+# [Created by task 2.5.1 10/2/2020 17:07:27]
+# Taskwarrior program configuration file.
+# For more documentation, see http://taskwarrior.org or try 'man task', 'man task-color',
+# 'man task-sync' or 'man taskrc'
+
+# Here is an example of entries that use the default, override and blank values
+#   variable=foo   -- By specifying a value, this overrides the default
+#   variable=      -- By specifying no value, this means no default
+#   #variable=foo  -- By commenting out the line, or deleting it, this uses the default
+
+# Use the command 'task show' to see all defaults and overrides
+
+# Files
+data.location=~/.config/task
+
+# Remove override warnings
+verbose=blank,footnote,label,new-id,affected,edit,special,project,sync,unwait
+
+confirmation=no
+color=on
+# Color theme (uncomment one to use)
+#rule.precedence.color=deleted,completed,active,keyword.,tag.,project,overdue,scheduled,due.today,due,priority,blocked,blocking,recurring,tagged,uda.
+
+# General decoration
+color.label=yellow
+color.label.sort=yellow
+color.alternate=white on black
+color.header=yellow
+color.footnote=magenta
+color.warning=bold red
+color.error=white on red
+color.debug=blue
+
+# Task state
+color.completed=blue
+color.deleted=gray
+color.active=black on bright green
+color.recurring=magenta
+color.scheduled=white on green
+color.until=
+color.blocked=black on white
+color.blocking=black on bright white
+
+# Project
+#color.project.Lab=magenta
+
+# Priority
+color.uda.priority.H=red
+color.uda.priority.M=green
+color.uda.priority.L=blue
+
+# Tags
+color.tag.next=bold yellow
+color.tag.none=
+color.tagged=
+
+# Due
+color.due=red
+color.due.today=red
+color.overdue=bold red
+
+# Report: burndown
+color.burndown.done=on green
+color.burndown.pending=on red
+color.burndown.started=on yellow
+
+# Report: history
+color.history.add=black on red
+color.history.delete=black on yellow
+color.history.done=black on green
+
+# Report: summary
+color.summary.background=white on black
+color.summary.bar=black on green
+
+# Command: calendar
+color.calendar.due=white on red
+color.calendar.due.today=bold white on red
+color.calendar.holiday=black on bright yellow
+color.calendar.overdue=black on bright red
+color.calendar.today=bold white on bright blue
+color.calendar.weekend=white on bright black
+color.calendar.weeknumber=bold blue
+
+# Command: sync
+color.sync.added=green
+color.sync.changed=yellow
+color.sync.rejected=red
+
+# Command: undo
+color.undo.after=green
+color.undo.before=red
+context.Lab=+lab
+context.Personal=+personal
+
+# Taskd setup
+taskd.certificate=\/home\/tetsomina\/.local\/share\/task\/tetsomina.cert.pem
+taskd.key=\/home\/tetsomina\/.local\/share\/task\/tetsomina.key.pem
+taskd.ca=\/home\/tetsomina\/.local\/share\/task\/ca.cert.pem
+taskd.server=192.168.0.2:53589
+taskd.credentials=Raspberry Pi\/tetsomina\/609484cf-bb8f-4913-9bac-73a1430c7751
+taskd.trust=ignore hostname
+news.version=2.6.0

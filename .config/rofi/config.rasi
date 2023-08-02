@@ -1,0 +1,15 @@
+configuration {
+    modi: "window,drun";
+    terminal: "alacrity";
+    disable-history: true;
+    case-sensitive: false;
+    drun-display-format: "{name}";
+    drun {
+        display-name: "Launch";
+    }
+    window {
+        display-name: "Windows";
+    }
+}
+@theme "dmenu"
+// vim:ft=css

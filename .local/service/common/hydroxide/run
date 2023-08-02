@@ -1,0 +1,3 @@
+#!/bin/sh
+
+exec hydroxide -disable-carddav serve

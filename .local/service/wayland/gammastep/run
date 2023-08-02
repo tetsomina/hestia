@@ -1,0 +1,10 @@
+#!/bin/sh
+
+set -- $(ip route show | grep default)
+GATEWAY="$3"
+
+ping -W 1 -c 1 $GATEWAY >/dev/null 2>&1 || exit 1
+
+coords=$(curl -s 'https://location.services.mozilla.com/v1/geolocate?key=geoclue' | jq '.location.lat, .location.lng' | tr '\n' ':' | sed 's/:$//')
+
+exec gammastep -l "$coords"

@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=Gbdfed
+Comment=GTK2 Bitmap Font Editor
+Exec=sh -c 'XDG_CONFIG_HOME=/tmp gbdfed -nm'
+Icon=Gbdfed
+Terminal=false
+StartupNotify=false
+Categories=Application;

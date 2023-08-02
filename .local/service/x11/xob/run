@@ -1,0 +1,18 @@
+#!/bin/sh
+
+ob() {
+    vfifo=/tmp/xob_vol
+    bfifo=/tmp/xob_bright
+
+    [ -e "$vfifo" ] && rm $vfifo
+    mkfifo $vfifo
+    [ -e "$bfifo" ] && rm $bfifo
+    mkfifo $bfifo
+
+    tail -f $vfifo | xob -t 2000 -s volume &
+    tail -f $bfifo | xob -t 2000 -s backlight &
+
+    wait
+}
+
+ob

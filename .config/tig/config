@@ -1,0 +1,24 @@
+## ▄▄▄█████▓ ██▓  ▄████
+## ▓  ██▒ ▓▒▓██▒ ██▒ ▀█▒
+## ▒ ▓██░ ▒░▒██▒▒██░▄▄▄░
+## ░ ▓██▓ ░ ░██░░▓█  ██▓
+##   ▒██▒ ░ ░██░░▒▓███▀▒
+##   ▒ ░░   ░▓   ░▒   ▒
+##     ░     ▒ ░  ░   ░
+##   ░       ▒ ░░ ░   ░
+##           ░        ░
+
+# Views
+set main-view	= line-number:no,interval=5 id:no date:custom,format="%F %R" author:full commit-title:yes,graph,refs,overflow=no
+
+# Bindings
+bind status P !git push origin
+
+# Color edits
+# color "author "			red	default
+# color cursor			black	white	bold
+# color date			yellow	default
+# color title-blur		magenta	black
+# color title-focus		magenta	black	bold
+
+# vim:ft=conf

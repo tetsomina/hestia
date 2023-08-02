@@ -1,0 +1,30 @@
+#!/bin/bash
+
+if [ -n "$WAYLAND_DISPLAY" ]; then
+    pid=$(pgrep -x wf-recorder)
+    if [ -n "$pid" ]; then
+        kill -INT "$pid"
+    else
+        input=$(date '+%Y-%m-%d_%H-%M-%S')
+        output=~/Pictures/Gifs/Recordings/${input}.gif
+        wf-recorder -g "$(slurp -b 00000000 -c dfdfaf)" -f ${output}
+    fi
+elif [ -n "$DISPLAY" ]; then
+    if pgrep ffmpeg >/dev/null 2>&1; then
+        pkill ffmpeg
+        notify-send "Record" "Stopping gif recording..."
+    else
+        notify-send "Record" "Select region to record"
+        eval $(slop --color=0.874,0.874,0.686 -b 2 -f 'W=%w H=%h X=%x Y=%y')
+        input=$(date '+%Y-%m-%d_%H-%M-%S')
+        output=~/Pictures/Gifs/Recordings/${input}.gif
+        mkdir -p /tmp/ffgif
+        ffmpeg -f x11grab -video_size ${W}x${H} -framerate 20 -i $DISPLAY+${X},${Y} /tmp/ffgif/%04d.png
+        #ffmpeg -i /tmp/${input}.mkv -vf "fps=10,split[s0][s1];[s0]palettegen[p];[s1][p]paletteuse" -loop -1 ${output}
+        convert -loop 0 -delay 5 /tmp/ffgif/*.png -layers Optimize ${output}
+        rm -rf /tmp/ffgif
+
+        #rm -rf /tmp/${input}.mkv
+        notify-send "Record" "Recording finished!"
+    fi
+fi

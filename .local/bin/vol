@@ -1,0 +1,109 @@
+#!/bin/sh
+value="${3:-5}"
+
+case $1 in
+alsa)
+	case $2 in
+	up)
+		amixer set Master $value%+
+		;;
+	down)
+		amixer set Master $value%-
+		;;
+	mute)
+		muted=$(amixer get Master | grep "Mono" | awk '{print $6}' | sed -r '/^\s*$/d')
+		if [ "$muted" = "[on]" ]; then
+			amixer set Master toggle
+		else
+			amixer set Master toggle
+		fi
+		;;
+	esac
+	vol=$(amixer get Master | grep "Mono" | awk '{print $4}' | tr -d -c 0-9)
+	muted=$(amixer get Master | grep "Mono" | awk '{print $6}' | sed -r '/^\s*$/d')
+	if [ "$muted" = "[off]" ]; then
+		echo "$vol!" >/tmp/xob_vol
+	else
+		echo "$vol" >/tmp/xob_vol
+	fi
+	;;
+alsamic)
+	case $2 in
+	up)
+		amixer set Capture $value%+
+		;;
+	down)
+		amixer set Capture $value%-
+		;;
+	mute)
+		muted=$(amixer get Capture | grep "Front Left" | awk '{print $7}' | sed -r '/^\s*$/d')
+		if [ "$muted" = "[on]" ]; then
+			amixer set Capture toggle
+			exit 0
+		else
+			amixer set Capture toggle
+		fi
+		;;
+	esac
+	vol=$(amixer get Capture | grep "Front Left" | tail -1 | awk '{print $5}' | tr -d -c 0-9)
+	muted=$(amixer get Capture | grep "Front Left" | tail -1 | awk '{print $7}' | sed -r '/^\s*$/d')
+	if [ "$muted" = "[off]" ]; then
+		echo "$vol!" >/tmp/xob_vol
+	else
+		echo "$vol" >/tmp/xob_vol
+	fi
+	;;
+pulse)
+	case $2 in
+	up)
+		pactl set-sink-volume @DEFAULT_SINK@ +$value%
+		;;
+	down)
+		pactl set-sink-volume @DEFAULT_SINK@ -$value%
+		;;
+	mute)
+		pactl set-sink-mute @DEFAULT_SINK@ toggle
+		;;
+	esac
+	
+    vol=$(pactl get-sink-volume @DEFAULT_SINK@ | cut -d'/' -f2 | head -1 | tr -d '%' | xargs)
+	muted=$(pactl get-sink-mute @DEFAULT_SINK@ | cut -d' ' -f2)
+	if [ "$muted" = "yes" ]; then
+		echo "$vol!" >/tmp/xob_vol
+	else
+		echo "$vol" >/tmp/xob_vol
+	fi
+	;;
+pulsemic)
+	case $2 in
+	up)
+		pactl set-source-volume @DEFAULT_SOURCE@ +$value%
+		;;
+	down)
+		pactl set-source-volume @DEFAULT_SOURCE@ -$value%
+		;;
+	mute)
+		pactl set-source-mute @DEFAULT_SOURCE@ toggle
+		;;
+	esac
+	
+    vol=$(pactl get-source-volume @DEFAULT_SOURCE@ | cut -d'/' -f2 | head -1 | tr -d '%' | xargs)
+	muted=$(pactl get-source-mute @DEFAULT_SOURCE@ | cut -d' ' -f2)
+	if [ "$muted" = "yes" ]; then
+		echo "$vol!" >/tmp/xob_vol
+	else
+		echo "$vol" >/tmp/xob_vol
+	fi
+	;;
+mpc)
+	case $2 in
+	up)
+		mpc volume +"$value"
+		;;
+	down)
+		mpc volume -"$value"
+		;;
+	esac
+	vol=$(mpc volume | awk -F "\t|%|:" '{ print $2 }' | tr -d " ")
+	;;
+esac

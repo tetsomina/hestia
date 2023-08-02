@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# To autoresize floating window to fit image
+
+for img; do :; done # Get the last argument, which should be the image
+geo=$(identify -format %G "$img")
+x=$(echo "$geo" | cut -d'x' -f1)
+y=$(echo "$geo" | cut -d'x' -f2)
+
+if [ "$x" -ge 1920 ] || [ "$y" -ge 1080 ]; then
+    /usr/bin/nsxiv -f "$@"
+else
+    /usr/bin/nsxiv -g "$geo" "$@"
+fi

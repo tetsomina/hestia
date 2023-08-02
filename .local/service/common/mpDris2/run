@@ -1,0 +1,6 @@
+#!/bin/sh
+
+# Lets ensure that the mpd daemon has started first
+[ "$(cat ~/.local/service/active/mpd/supervise/pid)" = "$(pgrep -x mpd)" ] || exit 1
+
+exec mpDris2
