@@ -191,8 +191,8 @@ underline = true
 # no handler is defined.
 # It uses the special value 'default', which will try and use the default
 # application on your computer for opening this kind of URI.
-gopher = ['lynx']
-#other = 'default'
+gopher = ['phetch']
+other = ['linkhandler']
 
 
 # [[mediatype-handlers]] section
@@ -279,7 +279,7 @@ timeout = 1800 # 30 mins
 # Allows setting a Gemini proxy for different schemes.
 # The settings are similar to the url-handlers section above.
 # E.g. to open a gopher page by connecting to a Gemini proxy server:
-#   gopher = "example.com:123"
+# gopher = "127.0.0.1:1965"
 #
 # Port 1965 is assumed if no port is specified.
 #

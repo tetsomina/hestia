@@ -1,0 +1,45 @@
+#!/usr/bin/sh
+# launcher wrapper script
+
+# TODO: Figure out a way to split frames on tags other than focused tag
+# ^^^^ can't do as of hlwm 0.9.5 sadly
+
+scripts_dir="$HOME/.config/herbstluftwm/scripts"
+
+pre() {
+  herbstclient and , split auto , cycle_frame , spawn "$@"
+}
+
+case "$1" in
+-c | --cond)
+  shift
+  rule=$(herbstclient list_rules | grep "instance=$1" | grep -o "tag=.*" | cut -d'=' -f2)
+  current=$(herbstclient get_attr tags.focus.name)
+
+  if [ -n "$rule" ] && [ "$rule" -ne "$current" ]; then
+    if [ "$2" ]; then
+      "$2" -name "$1" -e "$1"
+    else
+      "$1"
+    fi
+  else
+    if [ "$2" ]; then
+      pre "$2" -name "$1" -e "$1"
+    else
+      pre "$1"
+    fi
+
+  fi
+  ;;
+*)
+  cmd() {
+    rofi -show drun "$@"
+  }
+
+  if herbstclient compare tags.focus.curframe_wcount = 0; then
+    cmd -run-shell-command "{terminal} -name '{cmd}' -e {cmd}"
+  else
+    cmd -run-command "$scripts_dir/launch -c {cmd}" -run-shell-command "$scripts_dir/launch -c {cmd} {terminal}"
+  fi
+  ;;
+esac

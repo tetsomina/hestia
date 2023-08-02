@@ -1,6 +1,26 @@
 --   Which-Key
 -- ------------
-require("which-key").setup()
+require("which-key").setup(
+  {
+    icons = {
+      breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
+      separator = "-",  -- symbol used between a key and it's label
+      group = "+",      -- symbol prepended to a group
+    }
+  }
+)
+
+-- Formatter wrapper (WIP)
+-- --------------------
+function format()
+  local client = vim.lsp.get_active_clients()[1]
+  if client then
+    vim.lsp.buf.format({ async = true })
+  else
+    vim.cmd('Format')
+  end
+end
+
 require("which-key").register({
   ["<leader>"] = {
     l = {
@@ -11,7 +31,7 @@ require("which-key").register({
       L = { "<cmd>lua vim.diagnostic.setloclist()<cr>", "Set local list" },
       D = { "<cmd>lua vim.lsp.buf.declaration()<cr>", "Declarations" },
       d = { "<cmd>lua vim.lsp.buf.definition()<cr>", "Definition" },
-      h = { "<cmd>lua vim.lsp.buf.hover()<cr>", "Open hover window" },
+      h = { "<cmd>lua require('hover').hover()<cr>", "Open hover window" },
       i = { "<cmd>lua vim.lsp.buf.implementation()<cr>", "Implementation" },
       s = { "<cmd>lua vim.lsp.buf.signature_help()<cr>", "Signature help" },
       w = { "<cmd>lua vim.lsp.buf.add_workspace_folder()<cr>", "Add workspace folder" },
@@ -24,7 +44,7 @@ require("which-key").register({
       r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
       a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code action" },
       R = { "<cmd>lua vim.lsp.buf.references()<cr>", "References" },
-      f = { "<cmd>lua vim.lsp.buf.format({async = true})<cr>", "Format" },
+      f = { "<cmd>lua format()<cr>", "Format" },
     },
     h = {
       name = "+Hop",
@@ -59,10 +79,6 @@ require("which-key").register({
       t = { "<cmd>tabedit<cr>", "Edit tab" },
       d = { "<cmd>tabclose<cr>", "Close tab" },
     },
-    p = {
-      name = "+Auto-Pandoc",
-      p = { "<cmd>lua require('auto-pandoc').run_pandoc()<cr>", "Format" },
-    },
     m = {
       name = "+Mason",
       m = { "<cmd>Mason<cr>", "Open main Mason window" },
@@ -83,7 +99,10 @@ require("which-key").register({
       q = { "<cmd>TroubleToggle quickfix<cr>", "Toggle quickfix" },
       f = { "<cmd>TroubleToggle lsp_references<cr>", "Toggle lsp references" },
     },
+    p = { "<cmd>lua require('auto-pandoc').run_pandoc()<cr>", "Auto-Pandoc Format" },
     g = { "<cmd>lua tig_toggle()<cr>", "Toggle Tig" },
     z = { "<cmd>ZenMode<cr>", "Toggle Zen Mode" },
+    i = { "<cmd>GuessIndent<cr>", "Format with predicted indentation" },
+    c = { "<cmd>set termguicolors!<cr>", "Toggle termguicolors" },
   },
 })

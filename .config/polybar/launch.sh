@@ -13,7 +13,7 @@ done
 
 sleep 2
 for i in $(xdo id -n polybar); do
-	herbstclient lower "$i"
+	xdo lower "$i"
 done
 
 wait

@@ -15,10 +15,10 @@ set main-view	= line-number:no,interval=5 id:no date:custom,format="%F %R" autho
 bind status P !git push origin
 
 # Color edits
-# color "author "			red	default
-# color cursor			black	white	bold
-# color date			yellow	default
-# color title-blur		magenta	black
-# color title-focus		magenta	black	bold
+color "author "			red	default
+color cursor			black	white	bold
+color date			yellow	default
+color title-blur		magenta	black
+color title-focus		magenta	black	bold
 
 # vim:ft=conf

@@ -3,15 +3,12 @@ value="${2:-5}"
 
 case $1 in
 up)
-    #light -A $value
     brillo -A $value
     ;;
 down)
-    #light -U $value
     brillo -U $value
     ;;
 esac
 
-#cur=$(light | cut -d'.' -f1)
-cur=$(brillo | cut -d'.' -f1)
-echo "$cur" >/tmp/xob_bright
+# cur=$(brillo | cut -d'.' -f1)
+# echo "$cur" >/tmp/xob_bright

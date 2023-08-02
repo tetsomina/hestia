@@ -2,4 +2,4 @@
 
 [ $(cat ~/.local/service/active/mpd-mpris/supervise/pid) = $(pgrep -x mpd-mpris) ] || exit 1
 
-exec ~/.config/ncmpcpp/idle.sh
+exec ~/.config/ncmpcpp/notif.sh

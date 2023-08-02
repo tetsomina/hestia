@@ -1,4 +1,4 @@
 #!/bin/sh
 
-export XDG_CONFIG_HOME="/run/user/$(id -u)"
+#export XDG_CONFIG_HOME="/run/user/$(id -u)"
 exec pulseaudio --daemonize=no --exit-idle-time=-1

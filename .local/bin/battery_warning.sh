@@ -10,6 +10,7 @@ elif [ "$battery_level" -ge 100 ]; then
     notify-send -t 10000 "Battery Full" "Disconnect the power"
 fi
 
+# Bluetooth mouse battery
 bt_bat_check=$(find /sys/class/power_supply/* | wc -l)
 if [ "$bt_bat_check" -eq 3 ]; then
     bt_bat_lvl=$(cat /sys/class/power_supply/hid-34:88:5d:b6:e9:13-battery/capacity)

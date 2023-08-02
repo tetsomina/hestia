@@ -1,31 +1,34 @@
 # vim: filetype=neomuttrc
-source /home/tetsomina/.config/neomutt/accounts/tetsomina@proton.me.muttrc
+source /home/barbaross/.config/neomutt/accounts/cullen.ross@posteo.net.muttrc
 
+set send_charset="us-ascii:utf-8"
 set signature=~/.config/neomutt/signature
 set mailcap_path =~/.config/neomutt/mailcap
 set sort = "threads"
 set sort_aux = "reverse-last-date-received"
 set strict_threads = "yes"
 set editor="/usr/bin/vim"
-set new_mail_command="notify-send 'Mutt' ' New messages in your inbox!'"
-macro pager \cb <pipe-entry>'urlscan -s -r "linkhandler {}"'<enter> 'Follow links with urlscan'
+set new_mail_command	= "notify-send 'Neomutt' 'New Email in %f, %n new messages, %u unread.' &"
+set date_format="%m/%d/%y %I:%M%p"
+macro index,pager \cb "<pipe-message> urlscan -s<Enter>" "Follow links with urlscan"
+macro attach,compose \cb "<pipe-entry> urlscan -s<Enter>" "Follow links with  urlscan"
 
 auto_view text/html
+auto_view application/pgp-encrypted
 alternative_order text/html text/plain text/enriched
 
-set timeout=10
-
-#set query_command= "abook --config "$XDG_CONFIG_HOME"/abook/abookrc --datafile "$XDG_DATA_HOME"/abook/addressbook --mutt-query '%s'"
+set timeout=0
+set pipe_decode = yes # Decrypt messages before sending them to urlscan or such
 set query_command= "khard email --parsable %s"
 bind editor <Tab> complete-query
 bind editor ^T    complete
-#macro index,pager a "<pipe-message>abook --config "$XDG_CONFIG_HOME"/abook/abookrc --datafile "$XDG_DATA_HOME"/abook/addressbook --add-email-quiet<return>" "add the sender address to abook"
 macro index,pager a "<pipe-message>khard add-email<return>" "add the sender email address to khard"
-set smtp_authenticators = 'gssapi:login'
 set rfc2047_parameters = yes
 set sleep_time = 0      # Pause 0 seconds for informational messages
 set mark_old = no       # Unread mail stay unread until read
-set mime_forward = yes      # attachments are forwarded with mail
+set mime_forward = no	# mail body is forwarded as text
+set forward_attachments = yes	# attachments are forwarded with mail
+set mime_type_query_command = "file --mime-type -b %s"
 set wait_key = no       # mutt won't ask "press key to continue"
 set fast_reply          # skip to compose when replying
 set fcc_attach          # save attachments with the body
@@ -36,7 +39,6 @@ set include         # include message in replies
 set mail_check=60 # to avoid lags using IMAP with some email providers (yahoo for example)
 set collapse_all
 set uncollapse_jump = yes
-auto_view application/pgp-encrypted
 bind index,pager i noop
 bind index,pager g noop
 bind index \Cf noop
@@ -45,7 +47,7 @@ bind index \Cf noop
 
 # Status Bar -----------------------------------------
 set status_chars  = " *%A"
-set status_format = "━━━[ Folder: %f ]━━━[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]━━━%>━%?p?( %p postponed )?━━━"
+set status_format = "━━━[ Folder: %f ]━━━[%r%m messages%?n? (%n new)?%?d? (%d to delete)?%?t? (%t tagged)? ]━━━%>━%?p?[ %p postponed ]?━━━"
 
 # Header Options -------------------------------------
 ignore *                                # ignore all headers
@@ -61,7 +63,7 @@ set menu_scroll            # scroll in menus
 set tilde                  # show tildes like in vim
 unset markers              # no ugly plus signs
 
-set quote_regexp = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
+set quote_regex = "^( {0,4}[>|:#%]| {0,4}[a-z0-9]+[>|]+)+"
 alternative_order text/plain text/enriched text/html
 
 # General rebindings
@@ -104,17 +106,20 @@ bind    index   <down>  next-entry
 macro    index   <right> "<display-message><sync-mailbox>"
 macro browser <left> '<change-dir><kill-line>..<enter>' "Go to parent folder"
 bind compose p postpone-message
+bind compose P pgp-menu
+macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
+macro index A "<limit>all\n" "show all messages (undo limit)"
+
 
 # Encryption!
-source ~/.config/neomutt/gpg.rc
-set crypt_autosign = yes
-set crypt_opportunistic_encrypt = no
+set crypt_use_gpgme = yes
+set crypt_use_pka = yes
+set crypt_auto_encrypt = no # Not everyone is 1337 enough smh
+set crypt_auto_sign = yes
+set crypt_reply_encrypt = yes
 set pgp_self_encrypt = yes
-
-macro index \Cr "T~U<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" "mark all messages as read"
-macro index O "<shell-escape>mailsync<enter>" "run mailsync to sync all mail"
-macro index \Cf "<enter-command>unset wait_key<enter><shell-escape>printf 'Enter a search term to find with notmuch: '; read x; echo \$x >~/.cache/mutt_terms<enter><limit>~i \"\`notmuch search --output=messages \$(cat ~/.cache/mutt_terms) | head -n 600 | perl -le '@a=<>;s/\^id:// for@a;$,=\"|\";print@a' | perl -le '@a=<>; chomp@a; s/\\+/\\\\+/ for@a;print@a' \`\"<enter>" "show only messages matching a notmuch pattern"
-macro index A "<limit>all\n" "show all messages (undo limit)"
+set pgp_default_key  = "0x85CD2861BA2FE01B"
+set pgp_use_gpg_agent = yes
 
 # Sidebar mappings
 set sidebar_divider_char   = ' ┃'
@@ -136,10 +141,10 @@ set index_format = " %Z %?M?& ? %[%b %d] %-15.15F %s"
 color index blue default '.*'
 
 # New mail is boldened:
-color index yellow black '~N'
-color index_author red black '~N'
+color index bold yellow black '~N'
+color index_author bold red black '~N'
 color index_number blue black
-color index_subject white black '~N'
+color index_subject bold white black '~N'
 
 # Tagged mail is highlighted:
 color index yellow blue "~T"
@@ -154,7 +159,7 @@ mono error bold
 color normal default default
 color indicator brightblack white
 color sidebar_ordinary blue default
-color sidebar_indicator yellow black
+color sidebar_indicator bold yellow black
 color sidebar_highlight white default
 color sidebar_divider red default
 color sidebar_flagged red black
@@ -166,7 +171,7 @@ color message cyan default
 color markers red white
 color attachment white default
 color search brightred default
-color status red black
+color status bold red black
 color status white black '\[([^]]+)\]' 1
 color hdrdefault brightgreen default
 color quoted green default
@@ -205,46 +210,3 @@ color body brightyellow red "^gpg: BAD signature from.*"
 mono body bold "^gpg: Good signature"
 mono body bold "^gpg: BAD signature from.*"
 color body magenta default "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
-
-# Misc  -----------------------------------------------------------------------
-
-# The mail is not addressed to your address.
-# You are the only recipient of the message.
-# Your address appears in the "To:" header field, but you are not the only
-#   recipient of the message.
-# Your address is specified in the "Cc:" header field, but you are not the only
-#   recipient.
-# Indicates the mail that was sent by you .
-# Indicates the mail was sent to a mailing-list you subscribe to.
-# Your address appears in the "Reply-To:" header field but none of the above
-#   applies.
-set to_chars = "☺"
-
-# Mailbox is unchanged
-# Mailbox has been changed and needs to be resynchronized
-# Mailbox is read-only, or will not be written when exiting. (You can toggle
-#   whether to write changes to a mailbox with the <toggle-write>operation,
-#   bound by default to "%")
-# Folder opened in attach-message mode. (Certain operations like composing a
-#   new mail, replying, forwarding, etc. are not permitted in this mode)
-set status_chars = ""
-
-# The mail is tagged.
-# The mail is flagged as important.
-# The mail is marked for deletion.
-# The mail has attachments marked for deletion.
-# The mail has been replied to.
-# The mail is Old (Unread but seen).
-# The mail is New (Unread but not seen).
-# The mail thread is Old (Unread but seen).
-# The mail thread is New (Unread but not seen).
-# The mail is read - %S expando.
-# The mail is read - %Z expando.
-set flag_chars = "✘☒➜"
-
-# The mail is signed, and the signature is successfully verified.
-# The mail is PGP encrypted.
-# The mail is signed.
-# The mail contains a PGP public key.
-# The mail has no crypto info.
-set crypt_chars = ""

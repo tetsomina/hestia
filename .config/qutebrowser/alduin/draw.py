@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
 
-# def konda(c, options={}):
-def konda(c):
+def colors(c):
     palette = {
         "background": "#1c1c1c",
         "background-alt": "#262626",

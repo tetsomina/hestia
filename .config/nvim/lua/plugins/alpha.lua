@@ -16,16 +16,16 @@ db.section.header.val = {
 	"                                  ",
 }
 db.section.buttons.val = {
-	db.button("e", "  New file", "<cmd>ene<cr>"),
-	db.button("f", "  Search for file", "<cmd>Telescope find_files<cr>"),
-	db.button("r", "  Open recent file", "<cmd>Telescope oldfiles<cr>"),
-	db.button("n", "  Open file explorer", "<cmd>NvimTreeToggle ~/<cr>"),
-	db.button("u", "  Update plugins", "<cmd>PackerSync<cr>"),
-	db.button("q", "  Quit NVIM", "<cmd>qa<CR>"),
+	db.button("e", "   New file", "<cmd>ene<cr>"),
+	db.button("f", "   Search for file", "<cmd>Telescope find_files<cr>"),
+	db.button("r", "   Open recent file", "<cmd>Telescope oldfiles<cr>"),
+	db.button("n", "   Open file explorer", "<cmd>NvimTreeToggle ~/<cr>"),
+	db.button("u", "   Update plugins", "<cmd>PaqSync<cr>"),
+	db.button("q", "   Quit NVIM", "<cmd>qa<CR>"),
 }
 
 local function footer()
-    local total_plugins = vim.fn.len(vim.fn.globpath("~/.local/share/nvim/site/pack/packer/start", "*", 0, 1))
+    local total_plugins = vim.fn.len(vim.fn.globpath("~/.local/share/nvim/site/pack/paqs/start", "*", 0, 1))
     local version = vim.version()
     local v_info = " | v" .. version.major .. "." .. version.minor .. "." .. version.patch
 

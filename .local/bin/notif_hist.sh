@@ -4,7 +4,7 @@ notif_log=/tmp/notif_log
 count=/tmp/notif_count
 
 query() {
-    # Set to never time out, reverse order and attempts to dedup, doesnt work great
+    # Reverse order and attempts to dedup. Doesn't work great unfortunately
     notifs=$(tac $notif_log | cat -n | sort -uk2 | sort -nk1 | cut -f2-)
 
     # delete count file if older than 15 seconds
@@ -14,6 +14,7 @@ query() {
 
     c=$(cat $count)
     pkill zscroll
+    echo "clear" >/tmp/signal_bar &
     echo "$notifs" | awk "NR==$c" >"/tmp/old_notifs" &
     c=$((c + 1))
     echo "$c" >$count
@@ -22,6 +23,7 @@ query() {
 cleanup() {
     [ -f $count ] && rm $count
     pkill zscroll
+    echo "clear" >/tmp/signal_bar &
 }
 
 case "$1" in

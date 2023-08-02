@@ -10,6 +10,4 @@ chaindesc=$(grep 'keybind Escape' ~/.config/herbstluftwm/keychain.sh | awk '{$1=
 findesc="$description
 $chaindesc"
 
-final=$(paste -d '\t' <(echo "$finmods") <(echo "$findesc") | column -s $'\t' -t)
-
-echo "$final" | rofi -dmenu -i -p "Help"
+paste -d '\t' <(echo "$finmods") <(echo "$findesc") | column -s $'\t' -t | rofi -dmenu -i -p "Help"

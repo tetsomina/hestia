@@ -1,18 +1,44 @@
 #!/bin/sh
 
 ob() {
-    vfifo=/tmp/xob_vol
-    bfifo=/tmp/xob_bright
+  # Wait for amixer to become available
+  until [ "$(amixer)" ]; do sleep 0.1; done
 
-    [ -e "$vfifo" ] && rm $vfifo
-    mkfifo $vfifo
-    [ -e "$bfifo" ] && rm $bfifo
-    mkfifo $bfifo
+  # `amixer events` always emits 1 event from the start, so we must skip it
+  skip=1
+  stdbuf -oL amixer events |
+    while IFS= read -r line; do
+      case ${line%%,*} in
+      'event value: numid=12'*)
+        if [ "$skip" -eq 0 ]; then
+          # The `0+$2` below is to remove the '%' sign
+          amixer sget Master |
+            awk -F'[][]' '/Mono:/ {print 0+$2 ($6 == "off" ? "!" : "")}'
+        else
+          skip=$((skip - 1))
+        fi
+        ;;
+      'event value: numid=8'*)
+        if [ "$skip" -eq 0 ]; then
+          # The `0+$2` below is to remove the '%' sign
+          amixer sget Capture |
+            awk -F'[][]' '/Left:/ {print 0+$2 ($6 == "off" ? "!" : "")}'
+        else
+          skip=$((skip - 1))
+        fi
+        ;;
+      esac
+    done | xob -t 2000 -s volume &
+  
+  # Change below to suit your system
+  BACKLIGHT="/sys/class/backlight/intel_backlight"
+  BRIGHTNESS="$BACKLIGHT/brightness"
+  MAX_BRIGHTNESS=$(cat "$BACKLIGHT/max_brightness")
+  while inotifywait -q -q -e modify "$BRIGHTNESS"; do
+    cat $BRIGHTNESS 
+  done | xob -m "$MAX_BRIGHTNESS" -t 2000 -s backlight &
 
-    tail -f $vfifo | xob -t 2000 -s volume &
-    tail -f $bfifo | xob -t 2000 -s backlight &
-
-    wait
+  wait
 }
 
 ob

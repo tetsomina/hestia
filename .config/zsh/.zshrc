@@ -44,9 +44,8 @@ SAVEHIST=100000
 setopt APPEND_HISTORY
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt EXTENDED_HISTORY
-#setopt SHARE_HISTORY
-setopt histignorespace
-setopt share_history
+setopt SHARE_HISTORY
+setopt HISTIGNORESPACE
 
 # Colors for prompt
 autoload -U colors && colors
@@ -108,7 +107,6 @@ bindkey '^D' exit_zsh
 # Completion
 autoload -Uz compinit; compinit
 setopt complete_in_word
-setopt completealiases
 zstyle ':completion:*' use-cache on
 zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
 zstyle ':completion:*' rehash true
@@ -228,13 +226,9 @@ add-zsh-hook preexec setup
 add-zsh-hook precmd custom_prompt
 export PROMPT2="%F{1}━━━━━%f %F{8}%B■%b%f%{$reset_color%} "
 
-### General configs
-#Icons for lf
-source ~/.config/lf/lficons
-
 ### Aliases
 alias svim='sudoedit'
-alias l="exa -la --icons"
+alias l="exa -la"
 alias ip="ip --color=auto"
 alias diff='diff --color=auto'
 alias clip="xsel -ib --logfile /dev/null"
@@ -242,8 +236,6 @@ alias clip="xsel -ib --logfile /dev/null"
 alias cat="bat -p"
 alias ls="exa"
 alias scan="scanimage --device 'hpaio:/net/OfficeJet_3830_series?ip=192.168.0.4' --progress --format=png --output-file"
-alias ncdu="ncdu --color dark"
-# avoid typing the whole thing
 alias halt="sudo halt"
 alias poweroff="sudo poweroff"
 alias reboot="sudo reboot"
@@ -276,8 +268,9 @@ alias ....='cd ../../..'
 alias .....="cd ../../../.."
 alias _="sudo"
 alias newsboat='newsboat -q'
-alias cmus='tmux new-session -s Music "tmux source-file ~/.config/cmus/tmux_session"'
-alias ncmpcpp='tmux new-session -s Music "tmux source-file ~/.config/ncmpcpp/tmux_session"'
+#alias cmus='tmux new-session -s Music "tmux source-file ~/.config/cmus/tmux_session"'
+#alias ncmpcpp='tmux new-session -s Music "tmux source-file ~/.config/ncmpcpp/tmux_session"'
+alias ncmpcpp="~/.config/ncmpcpp/launch.sh"
 alias bnps='java -jar ~/Public/font-stuff/BitsNPicas.jar'
 alias usv="SVDIR=~/.local/service/active sv"
 alias figlet="figlet -d ~/Public/font-stuff/figlet-fonts"
@@ -305,15 +298,17 @@ man() {
         man "$@"
 }
 
-lf() {
-    tempfile="$(mktemp)"
-   /usr/bin/lf -command "map Q \$echo \$PWD >$tempfile; /usr/bin/lf -remote \"send \$id quit\"" "$@"
+rn() {
+    tempfile="$(mktemp -t tmp.XXXXXX)"
+    ranger_cmd=(
+        ranger --cmd="map Q chain shell echo %d > "$tempfile"; quitall"
+    )
 
-    new_dir=$(cat "$tempfile")
-    if [ "$new_dir" != "$(pwd)" ]; then
-           cd "$new_dir" || return
-   fi
-   rm -f -- "$tempfile" 2>/dev/null
+    ${ranger_cmd[@]} "$@"
+    if [[ -f "$tempfile" ]] && [[ "$(cat -- "$tempfile")" != "$(echo -n `pwd`)" ]]; then
+        cd -- "$(cat "$tempfile")" || return
+    fi
+    rm -f -- "$tempfile" 2>/dev/null
 }
 
 dotgit() {
@@ -335,7 +330,7 @@ cht() {
 
 # Send a spotdl command to remote server
 sshpotdl() {
-    ssh -p 5522 barbaross@192.168.0.2 -f "sh -c 'tsp /home/barbaross/.local/bin/spotdl --headless --output /var/lib/mpd/music download $@ >/dev/null 2>&1 &'"
+    ssh -p 5522 barbaross@192.168.0.2 -f "sh -c 'tsp /home/barbaross/.local/bin/spotdl download $@ --headless --output "/var/lib/mpd/music/{artist}-{title}.{output-ext}" >/dev/null 2>&1 &'"
 }
 
 font_preview() {
@@ -355,7 +350,7 @@ a b c d e f g h i j k l m n o p q r s t u v w x y z
 ### Internal zsh functions
 # auto ls after a cd
 chpwd() {
-    exa --icons -a
+    exa -a
 }
 
 command_not_found_handler() {

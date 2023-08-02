@@ -1,27 +1,37 @@
 #!/bin/sh
 
-#state=$(sv check ~/.local/service/wayland/swayidle/ | cut -d' ' -f2)
-state=$(xset q | grep 'DPMS is' | awk '{print $3}')
-case "$state" in
-Enabled)
-    xset -dpms
-    xset s off
-    xset s noblank
-    xautolock -disable
-    echo true >/tmp/caffeine.fifo
+caffstart() {
+  xset -dpms
+  xset s off
+  xset s noblank
+  xautolock -disable
+  echo true >/tmp/caffeine.fifo
+
+}
+
+caffend() {
+  xset +dpms
+  xset s
+  xautolock -enable
+  echo false >/tmp/caffeine.fifo
+}
+
+case "$1" in
+-s | --start)
+  caffstart
+  ;;
+-e | --end)
+  caffend
+  ;;
+*)
+  state=$(xset q | awk '/DPMS is/ {print $3}')
+  case "$state" in
+  Enabled)
+    caffstart
     ;;
-Disabled)
-    xset +dpms
-    xset s
-    xautolock -enable
-    echo false >/tmp/caffeine.fifo
+  Disabled)
+    caffend
     ;;
-*run*)
-    sv down ~/.local/service/wayland/swayidle
-    echo true >/tmp/caffeine.fifo
-    ;;
-*down*)
-    sv up ~/.local/service/wayland/swayidle
-    echo false >/tmp/caffeine.fifo
-    ;;
+  esac
+  ;;
 esac

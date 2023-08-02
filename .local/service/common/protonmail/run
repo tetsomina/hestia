@@ -2,5 +2,4 @@
 
 pgrep -x xsecurelock && exit
 
-exec bridge -n
-#exec protonmail-bridge --cli --no-window
+exec protonmail-bridge -n

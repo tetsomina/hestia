@@ -1,6 +1,6 @@
 #!/bin/sh
 
-if pidof picom; then
+if pidof picom >/dev/null; then
 	sv down ~/.local/service/x11/picom
 	notify-send "Compositor" "Compositor killed"
 else

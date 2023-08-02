@@ -39,3 +39,5 @@
 ! Greys for bar
 *color16: #504945
 *color17: #665c54
+
+! vim:ft=xdefaults

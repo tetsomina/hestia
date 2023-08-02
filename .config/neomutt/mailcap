@@ -1,7 +1,7 @@
-text/plain; /usr/bin/nvim %s ;
+text/plain; nvim %s ;
 text/html; lynx -assume_charset=%{charset} -display_charset=utf-8 -dump %s; nametemplate=%s.html; copiousoutput;
-#text/html; html_read %s; copiousoutput;
-image/*; imv %s ;
+text/calendar; khal import -a posteo %s
+image/*; nsxiv %s ;
 video/*; setsid mpv --quiet %s &; copiousoutput
 audio/*; mpv %s ;
 application/pdf; zathura %s ;

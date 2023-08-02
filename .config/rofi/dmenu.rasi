@@ -57,6 +57,10 @@ entry {
     expand:     false;
     width:      20em;
     padding:    3px 5px;
+    margin:     0px 5px;
+    background-color: #121212;
+    placeholder: "Ask and ye shall receive...";
+    placeholder-color: #4e4e4e;
 }
 element {
     padding: 0px 2px;
@@ -72,7 +76,7 @@ element-text selected {
     text-transform:     bold;
 }
 element-text {
-    background-color:   inherit; 
+    background-color:   inherit;
     text-color:         inherit;
     padding:            3px 5px;
     highlight:          None;

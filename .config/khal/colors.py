@@ -1,3 +1,10 @@
+#!/usr/bin/python
+
+# Must edit /usr/lib/pythonX.YY/site-packages/khal/settings/khal.spec
+# and add 'muspelheim' to theme options. Additionally, will want to
+# copy and paste the below code to /usr/lib/pythonX.YY/site-packages/khal/ui/colors.py
+# at the bottom of the file
+
 muspelheim = [
     ('header', 'white', 'black'),
     ('footer', 'white', 'black'),

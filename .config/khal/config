@@ -1,16 +1,16 @@
 [calendars]
 
-[[personal]]
-path = ~/.config/vdirsyncer/calenders/reminders/
+[[posteo]]
+path = ~/.local/share/vdirsyncer/posteo/default
 type = calendar
 color = yellow
 
 [locale]
-timeformat = %H:%M
-dateformat = %m/%d/%Y
-longdateformat = %m/%d/%Y
-datetimeformat = %m/%d/%Y %I:%M %p
-longdatetimeformat = %m/%d/%Y %I:%M %p
+timeformat = %I:%M %p
+dateformat = %m/%d/%y
+longdateformat = %B %d, %Y
+datetimeformat = %m/%d/%y at %I:%M %p
+longdatetimeformat = %B %d, %Y at %I:%M %p
 unicode_symbols = False
 
 [highlight_days]
@@ -18,4 +18,3 @@ color = yellow
 
 [view]
 frame = top
-theme = muspelheim

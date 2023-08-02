@@ -1,6 +1,6 @@
 configuration {
     modi: "window,drun";
-    terminal: "alacrity";
+    terminal: "urxvtc";
     disable-history: true;
     case-sensitive: false;
     drun-display-format: "{name}";

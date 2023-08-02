@@ -1,0 +1,69 @@
+# vim: filetype=neomuttrc
+# muttrc file for account cullen.ross@posteo.net
+set real_name = "Cullen Ross"
+set from = "cullen.ross@posteo.net"
+alias me Cullen Ross <cullen.ross@posteo.net>
+set use_from = "yes"
+set header_cache = "/home/barbaross/.cache/neomutt/cullen.ross_posteo.net/headers"
+set message_cachedir = "/home/barbaross/.cache/neomutt/cullen.ross_posteo.net/bodies"
+
+## Local maildir settings with isync/msmtp/notmuch
+# set folder = "/home/barbaross/.local/share/mail/cullen.ross@posteo.net"
+# set sendmail = "msmtp -a cullen.ross@posteo.net"
+# set mbox_type = Maildir
+# set hostname = "posteo.net"
+
+## Remote email server configs
+set folder ="imaps://posteo.de:993"
+set imap_user = "cullen.ross@posteo.net"
+set imap_pass = "`pass posteo.de/cullen.ross@posteo.net`"
+set imap_idle = yes
+set imap_keepalive = 180
+
+set smtp_url = "smtps://cullen.ross@posteo.net@posteo.de:465/"
+set smtp_pass = $imap_pass
+set smtp_authenticators = 'gssapi:login'
+set ssl_starttls=yes
+set ssl_force_tls=yes
+
+## Mostly common configs again
+set spool_file = "+INBOX"
+set postponed = "+Drafts"
+set trash = "+Trash"
+set record = "+Sent"
+
+bind index,pager gg noop
+bind index,pager g noop
+bind index,pager M noop
+bind index,pager C noop
+bind index gg first-entry
+
+## Separators: "." for remote configs, "/" for local configs
+mailboxes "=INBOX" "=Drafts" "=Sent" "=Notes" "=Trash" "=Proton Migration.All Mail" "=Proton Migration.Important" "=Proton Migration.Sent Mail"
+named-mailboxes "Inbox"     "=INBOX"
+named-mailboxes "Drafts"    "=Drafts"
+named-mailboxes "Sent Mail" "=Sent"
+named-mailboxes "Notes"     "=Notes"
+named-mailboxes "Trash"     "=Trash"
+named-mailboxes "Full Archives"  "=Proton Migration.All Mail"
+named-mailboxes "Important Archives"  "=Proton Migration.Important"
+named-mailboxes "Sent Archives"  "=Proton Migration.Sent Mail"
+
+macro index,pager gi "<change-folder>=INBOX<enter>" "go to inbox"
+macro index,pager Mi ";<save-message>=INBOX<enter>" "move mail to inbox"
+macro index,pager Ci ";<copy-message>=INBOX<enter>" "copy mail to inbox"
+macro index,pager gd "<change-folder>=Drafts<enter>" "go to drafts"
+macro index,pager Md ";<save-message>=Drafts<enter>" "move mail to drafts"
+macro index,pager Cd ";<copy-message>=Drafts<enter>" "copy mail to drafts"
+macro index,pager gs "<change-folder>=Sent<enter>" "go to sent"
+macro index,pager Ms ";<save-message>=Sent<enter>" "move mail to sent"
+macro index,pager Cs ";<copy-message>=Sent<enter>" "copy mail to sent"
+macro index,pager gn "<change-folder>=Notes<enter>" "go to notes"
+macro index,pager Mn ";<save-message>=Notes<enter>" "move mail to notes"
+macro index,pager Cn ";<copy-message>=Notes<enter>" "copy mail to notes"
+macro index,pager ga "<change-folder>=Proton Migration/All Mail<enter>" "go to archives"
+macro index,pager Ma ";<save-message>=Proton Migration/All Mail<enter>" "move mail to archives"
+macro index,pager Ca ";<copy-message>=Proton Migration/All Mail<enter>" "copy mail to archives"
+macro index,pager gt "<change-folder>=Trash<enter>" "go to trash"
+macro index,pager Mt ";<save-message>=Trash<enter>" "move mail to trash"
+macro index,pager Ct ";<copy-message>=Trash<enter>" "copy mail to trash"

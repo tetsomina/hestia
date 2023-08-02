@@ -20,8 +20,8 @@
 *.color11:      #dfaf87
 
 ! blue
-*.color4:       #5f5f87
-*.color12:      #8787af
+*.color4:       #878787
+*.color12:      #afafaf
 
 ! magenta
 *.color5:       #875f5f
@@ -38,5 +38,5 @@
 ! Shades of grey
 *.color16: 		#424242
 *.color17: 		#3a3a3a
-*.color18: 		#626262
+*.color18: 		#121212
 ! vim:ft=xdefaults

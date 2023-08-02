@@ -4,28 +4,29 @@ import alduin.draw
 # Lets keep all configs here
 config.load_autoconfig(False)
 
-# everforest.draw.konda(c, {"spacing": {"vertical": 5, "horizontal": 8}})
-alduin.draw.konda(c)
+alduin.draw.colors(c)
 
-c.fonts.default_size = "12pt"
+c.fonts.default_size = "16px"
 c.fonts.default_family = "monospace"
 c.fonts.prompts = "default_size default_family" # Only one whose default is sans-serif
 c.url.start_pages = "~/.config/qutebrowser/startpage/index.html"
 c.url.default_page = "~/.config/qutebrowser/startpage/index.html"
-c.editor.command = ["alacritty", "--class", "qute", "-e", "/usr/bin/nvim", "{}"]
+c.editor.command = ["urxvtc", "-name", "qute", "-e", "nvim", "{}"]
 
 # External file selection
 c.fileselect.handler = "external"
-c.fileselect.folder.command = ["alacritty", "--class", "qute", "-e", "lf", "-selection-path", "{}"]
-c.fileselect.multiple_files.command = ["alacritty", "--class", "qute", "-e", "lf", "-selection-path", "{}"]
-c.fileselect.single_file.command = ["alacritty", "--class", "qute", "-e", "lf", "-selection-path", "{}"]
+c.fileselect.folder.command = ["urxvtc", "-name", "qute", "-e", "ranger", "--choosedir={}"]
+c.fileselect.multiple_files.command = ["urxvtc", "-name", "qute", "-e", "ranger", "--choosefiles={}"]
+c.fileselect.single_file.command = ["urxvtc", "-name", "qute", "-e", "ranger", "--choosefile={}"]
 
 # Dark mode bay-bee
 c.colors.webpage.darkmode.enabled =  False
 c.colors.webpage.preferred_color_scheme = "dark"
 
 # Settings
+c.spellcheck.languages = ["en-US"]
 c.auto_save.session = True
+c.session.lazy_restore = True
 c.content.blocking.method = "both"
 c.completion.open_categories = ["searchengines", "quickmarks", "bookmarks", "history", "filesystem"]
 c.downloads.remove_finished = 5000

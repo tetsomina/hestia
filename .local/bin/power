@@ -7,33 +7,42 @@ Hibernate
 Reboot
 Shutdown"
 
-backlight_save() {
-    brillo -O
+shutdown_sequence() {
+  brillo -O
 }
 
 choice=$(echo "$options" | rofi -dmenu -i -p "Power")
 
 case "$choice" in
-*Lock*)
-    xautolock -locknow
-    #lock
-    ;;
-*Logout*)
+Lock)
+  xautolock -locknow
+  #lock
+  ;;
+Logout)
+  shutdown_sequence
+  
+  wm=$(xprop -root _NET_WM_NAME | cut -d\" -f2)
+  
+  case "$wm" in
+  herbstluftwm)
     herbstclient quit
-    #swaymsg exit
     ;;
-*Suspend*)
-    sudo zzz -H
-    ;;
-*Hibernate*)
-    sudo ZZZ
-    ;;
-*Reboot*)
-    backlight_save
-    sudo reboot
-    ;;
-*Shutdown*)
-    backlight_save
-    sudo poweroff
-    ;;
+  esac
+  ;;
+Suspend)
+  shutdown_sequence
+  sudo zzz -H
+  ;;
+Hibernate)
+  shutdown_sequence
+  sudo ZZZ
+  ;;
+Reboot)
+  shutdown_sequence
+  sudo reboot
+  ;;
+Shutdown)
+  shutdown_sequence
+  sudo poweroff
+  ;;
 esac

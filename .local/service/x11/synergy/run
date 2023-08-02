@@ -1,3 +1,13 @@
 #!/bin/sh
 
-exec synergyc --no-daemon --no-tray --enable-crypto 192.168.0.8
+exec synergyc --no-daemon --no-tray --enable-crypto 192.168.0.8 |
+  while read -r event; do
+    case "$event" in
+    *"NOTE: connected to server")
+      caffeine.sh -s
+      ;;
+    *"NOTE: disconnected from server")
+      caffeine.sh -e
+      ;;
+    esac
+  done

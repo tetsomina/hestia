@@ -6,7 +6,7 @@ if [ ! -p /tmp/new_notifs ]; then
     mkfifo /tmp/new_notifs
 fi
 
-exec tiramisu -o "#summary\t#body\t#timeout" |
+exec tiramisu -o "#summary\t#body\t#timeout\t#id" |
     while read -r line; do
         echo "$line" >/tmp/new_notifs
         echo "LOG $line" >>/tmp/notif_log

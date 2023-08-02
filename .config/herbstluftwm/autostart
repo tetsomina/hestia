@@ -51,8 +51,15 @@ for i in "${!tag_names[@]}"; do
 	key="${tag_keys[$i]}"
 	if [ -n "$key" ]; then
 		#hc keybind "$Mod-$key" use_index "$i" #Focus tag at number
-		hc keybind "Mod4-$key" substitute PRE tags.focus.index chain + use_index "$i" + or , compare tags.focus.index != PRE , use_previous #Focus tag at number
-		hc keybind "Mod4-Shift-$key" move_index "$i"                                                                                        #Move focus window to tag at number
+		hc keybind "Mod4-$key" substitute PRE tags.focus.index chain \
+			+ use_index "$i" \
+			+ or , compare tags.focus.index != PRE , use_previous #Focus tag at number
+		hc keybind "Mod4-Shift-$key" or \
+			, and \
+			+ compare tags.focus.curframe_wcount = 1 \
+			+ move_index "$i" \
+			+ close_and_remove \
+			, move_index "$i" #Move focus window to tag at number
 	fi
 done
 
@@ -94,7 +101,7 @@ hc attr theme.floating.outer_width 3
 
 hc set window_gap 0
 hc set smart_window_surroundings 0
-hc set smart_frame_surroundings off
+hc set smart_frame_surroundings 0
 hc set focus_stealing_prevention true
 hc set mouse_recenter_gap 0
 hc set focus_crosses_monitor_boundaries 1
@@ -107,31 +114,28 @@ hc unrule -F
 hc rule focus=on # normally focus new clients
 hc rule instance=dropdown floating=on focus=on
 hc rule instance=qute floating=on floatplacement=center focus=on
+hc rule instance=todo floating=on floatplacement=center focus=on
 hc rule class=Nsxiv floating=on floatplacement=center focus=on
-hc rule class=imv floating=on floatplacement=center focus=on
 hc rule class=mpv floating=on floatplacement=center focus=on
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(DIALOG|UTILITY|SPLASH)' pseudotile=on
 hc rule windowtype='_NET_WM_WINDOW_TYPE_DIALOG' focus=on floatplacement=center
 hc rule windowtype~'_NET_WM_WINDOW_TYPE_(NOTIFICATION|DOCK|DESKTOP)' manage=off
 hc rule class=qutebrowser tag=1
-hc rule title=Neomutt tag=2
-hc rule title=Vit tag=2
-hc rule title=Khal tag=2
+hc rule instance=neomutt tag=2
+hc rule instance=ikhal tag=2
 hc rule class=Zathura tag=4
-hc rule title=Amfora tag=5
-hc rule title=Phetch tag=5
-hc rule title=Newsboat tag=5
-hc rule title=Tuir tag=5
-hc rule title=WeeChat tag=6
-hc rule title=Music tag=7 #fix me
-hc rule class=Steam tag=8 floating=on floatplacement=center
+hc rule instance=amfora tag=5
+hc rule instance=phetch tag=5
+hc rule instance=newsboat tag=5
+hc rule instance=weechat tag=6
+hc rule instance~".*launch.sh" tag=7
 
 # unlock, just to be sure
 for i in seq $(hc get monitors_locked); do
 	hc unlock
 done
 
-herbstclient set tree_style '■┃ ┣┗■━┓'
+hc set tree_style '■┃ ┣┗■━┓'
 
 # Autostart once
 if hc silent new_attr bool my_not_first_autostart; then
@@ -141,36 +145,30 @@ if hc silent new_attr bool my_not_first_autostart; then
 	setsid -f runsvdir -P ~/.local/service/active
 
 	# Update dbus session address in cron
-	crontab -l \
-    | sed "s|DBUS_SESSION_BUS_ADDRESS=.*|DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS|" \
-    | crontab -
+	crontab -l |
+		sed "s|DBUS_SESSION_BUS_ADDRESS=.*|DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS|" |
+		crontab -
 
-	# Things to launch on startup that require an internet connection
-	while :; do
-		[ "$(cat /sys/class/net/wlp5s0/carrier)" -eq 1 ] && break
-		sleep 1
-	done
-	network=$(iwctl station wlp5s0 show | grep 'Connected network' | xargs | cut -d' ' -f3-)
+  # Wait until lockscreen is finished before continuing
+	pid=$(pgrep -x xsecurelock)
+	[ -n "$pid" ] && tail --pid="$pid" -f /dev/null
+	
+  # Things to launch on startup that require an internet connection
+  until ping -q -c 1 -W 1 duckduckgo.com >/dev/null; do :; done
+	network=$(iwctl station wlp5s0 show | grep 'Connected network')
 	case "$network" in
-	Ollies*Network)
+	*Ollies*Network*)
 		#sv start ~/.local/service/x11/barrier
 		sv start ~/.local/service/x11/synergy
 		#true
 		;;
 	*)
-		pid=$(pgrep -x xsecurelock)
-		[ -n "$pid" ] && tail --pid="$pid" -f /dev/null
-		sudo -A wg-quick up barbarossvpn
+		sudo -A wg-quick up muspelheim
 		;;
 	esac
 
-	#On startup, Update stuff with server
-	vdirsyncer sync
-	task sync
+	# On startup, Update remote stuff
+  pass git pull
+  vdirsyncer sync
+	#task sync
 fi
-
-# do multi monitor setup here, e.g.:
-# Auto start only once
-#hc set_monitors 1366x768+0+0 1280x800+1366+0
-# or simply:
-hc detect_monitors
