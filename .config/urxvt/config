@@ -1,9 +1,9 @@
 ! Fonts
-URxvt.font:	-barbaross-viscera-medium-r-normal--16-160-96-96-m-80-iso10646-1,\
+URxvt.font:	-tet-viscera-medium-r-normal--16-160-96-96-m-80-iso10646-1,\
 			-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1,\
 			-gnu-unifont-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1,\
 			xft:Symbola:pixelsize=16:antialias=true
-URxvt.boldFont: -barbaross-viscera-bold-r-normal--0-0-96-96-m-0-iso10646-1,\
+URxvt.boldFont: -tet-viscera-bold-r-normal--0-0-96-96-m-0-iso10646-1,\
 			-wuncon-siji-medium-r-normal--10-100-75-75-c-80-iso10646-1,\
 			-gnu-unifont-medium-r-normal-sans-16-160-75-75-c-80-iso10646-1,\
 			xft:Symbola:pixelsize=16:antialias=true
@@ -52,7 +52,7 @@ URxvt.keysym.Shift-Control-V:   eval:paste_clipboard
 URxvt.keysym.Shift-Control-C:   eval:selection_to_clipboard
 
 ! Perl stuff from here on out
-URxvt.perl-lib: 		    /usr/lib64/urxvt/perl:/home/barbaross/.config/urxvt/ext
+URxvt.perl-lib: 		    /usr/lib64/urxvt/perl:/home/tet/.config/urxvt/ext
 URxvt.perl-ext-common:  default,matcher,newterm,keyboard-select,-confirm-paste
 
 ! Matcher extension settings

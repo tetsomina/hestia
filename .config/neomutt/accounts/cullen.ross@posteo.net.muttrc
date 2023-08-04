@@ -1,26 +1,26 @@
 # vim: filetype=neomuttrc
-# muttrc file for account cullen.ross@posteo.net
-set real_name = "Cullen Ross"
-set from = "cullen.ross@posteo.net"
-alias me Cullen Ross <cullen.ross@posteo.net>
+# muttrc file for account tetsomina@gmail.com
+set real_name = "Tetsomina"
+set from = "tetsomina@gmail.com"
+alias me Tetsomina <tetsomina@gmail.com>
 set use_from = "yes"
-set header_cache = "/home/barbaross/.cache/neomutt/cullen.ross_posteo.net/headers"
-set message_cachedir = "/home/barbaross/.cache/neomutt/cullen.ross_posteo.net/bodies"
+set header_cache = "/home/tet/.cache/neomutt/tetsomina_gmail.com/headers"
+set message_cachedir = "/home/tet/.cache/neomutt/tetsomina_gmail.com/bodies"
 
 ## Local maildir settings with isync/msmtp/notmuch
-# set folder = "/home/barbaross/.local/share/mail/cullen.ross@posteo.net"
-# set sendmail = "msmtp -a cullen.ross@posteo.net"
+# set folder = "/home/tet/.local/share/mail/tetsomina@gmail.com"
+# set sendmail = "msmtp -a tetsomina@gmail.com"
 # set mbox_type = Maildir
-# set hostname = "posteo.net"
+# set hostname = "gmail.com"
 
 ## Remote email server configs
-set folder ="imaps://posteo.de:993"
-set imap_user = "cullen.ross@posteo.net"
-set imap_pass = "`pass posteo.de/cullen.ross@posteo.net`"
+set folder ="imaps://imap.gmail.com:993"
+set imap_user = "tetsomina@gmail.com"
+set imap_pass = "`pass gmail.com/tetsomina@gmail.com`"
 set imap_idle = yes
 set imap_keepalive = 180
 
-set smtp_url = "smtps://cullen.ross@posteo.net@posteo.de:465/"
+set smtp_url = "smtps://tetsomina@gmail.com@gmail.com:465/"
 set smtp_pass = $imap_pass
 set smtp_authenticators = 'gssapi:login'
 set ssl_starttls=yes

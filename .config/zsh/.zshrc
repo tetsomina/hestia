@@ -253,9 +253,9 @@ alias xs='fuzzypkg'
 alias clk='sudo vkpurge rm all'
 alias tksv='tmux kill-server'
 alias hc='herbstclient'
-alias dotlink="stow --ignore='.git' --ignore='screenshots' --ignore='wallpapers' --ignore='.gitmodules' --ignore='.gitignore' --ignore='pkglist.txt' --ignore='README.md' -R --target=/home/barbaross -d /home/barbaross/Public/thonkpad-dotfiles ."
-alias rpi="ssh -p 5522 barbaross@192.168.0.2"
-alias sdf="ssh barbaross@sdf.org"
+alias dotlink="stow --ignore='.git' --ignore='screenshots' --ignore='wallpapers' --ignore='.gitmodules' --ignore='.gitignore' --ignore='pkglist.txt' --ignore='README.md' -R --target=/home/tet -d /home/tet/Public/thonkpad-dotfiles ."
+alias rpi="ssh -p 5522 tet@192.168.0.2"
+alias sdf="ssh tet@sdf.org"
 alias trp="trash-put"
 alias trr="trash-restore"
 alias tre="trash-empty"
@@ -312,7 +312,7 @@ rn() {
 }
 
 dotgit() {
-    gitdir="/home/barbaross/Public/thonkpad-dotfiles/"
+    gitdir="/home/tet/Public/thonkpad-dotfiles/"
     git -C $gitdir add .
     git -C $gitdir commit -m "$*"
     git -C $gitdir push
@@ -330,7 +330,7 @@ cht() {
 
 # Send a spotdl command to remote server
 sshpotdl() {
-    ssh -p 5522 barbaross@192.168.0.2 -f "sh -c 'tsp /home/barbaross/.local/bin/spotdl download $@ --headless --output "/var/lib/mpd/music/{artist}-{title}.{output-ext}" >/dev/null 2>&1 &'"
+    ssh -p 5522 tet@192.168.0.2 -f "sh -c 'tsp /home/tet/.local/bin/spotdl download $@ --headless --output "/var/lib/mpd/music/{artist}-{title}.{output-ext}" >/dev/null 2>&1 &'"
 }
 
 font_preview() {

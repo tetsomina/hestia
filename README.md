@@ -23,7 +23,7 @@
 - Color scheme: [alduin](https://github.com/AlessandroYorba/Alduin)
 
 ## Credits
-- [Barbaross](https://github.com/Barbarossa93/Myrmidon)
+- [tet](https://github.com/teta93/Myrmidon)
 - [LeetApe](https://github.com/leetApe/Ronin)
 - [xer0](https://github.com/xero/dotfiles)
 - [pyratebeard](https://gitlab.com/pyratebeard/dotfiles)

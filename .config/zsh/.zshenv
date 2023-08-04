@@ -1,7 +1,7 @@
 ### Environment vars
 
 # Add local bin
-export PATH="/home/barbaross/.local/bin:$PATH"
+export PATH="/home/tet/.local/bin:$PATH"
 
 #Default editor
 export EDITOR="nvim"

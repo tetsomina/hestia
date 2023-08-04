@@ -3,7 +3,7 @@
 # Simple wrapper script to launch games
 
 # Old libs needed by some games
-export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":/home/barbaross/Public/Games/libs
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH":/home/tet/Public/Games/libs
 
 # Needed for music in doomretro and warcraft I
 export SDL_SOUNDFONTS=/usr/share/soundfonts/FluidR3_GM.sf2

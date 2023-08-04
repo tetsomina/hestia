@@ -1,5 +1,5 @@
 # vim: filetype=neomuttrc
-source /home/barbaross/.config/neomutt/accounts/cullen.ross@posteo.net.muttrc
+source /home/tet/.config/neomutt/accounts/tetsomina@gmail.com
 
 set send_charset="us-ascii:utf-8"
 set signature=~/.config/neomutt/signature
