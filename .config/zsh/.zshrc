@@ -254,13 +254,9 @@ alias clk='sudo vkpurge rm all'
 alias tksv='tmux kill-server'
 alias hc='herbstclient'
 alias dotlink="stow --ignore='.git' --ignore='screenshots' --ignore='wallpapers' --ignore='.gitmodules' --ignore='.gitignore' --ignore='pkglist.txt' --ignore='README.md' -R --target=/home/tet -d /home/tet/Public/thonkpad-dotfiles ."
-alias rpi="ssh -p 5522 tet@192.168.0.2"
-alias sdf="ssh tet@sdf.org"
 alias trp="trash-put"
 alias trr="trash-restore"
 alias tre="trash-empty"
-alias ovpn="sudo openvpn --config /etc/openvpn/client/muspelheim.ovpn --askpass /etc/openvpn/client/muspelheim.pass --daemon"
-alias kovpn="sudo pkill -INT openvpn"
 alias wgu="sudo wg-quick up muspelheim"
 alias wgd="sudo wg-quick down muspelheim"
 alias ...='cd ../..'
